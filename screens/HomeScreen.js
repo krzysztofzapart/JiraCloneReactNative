@@ -1,25 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import TabNavigator from '../navigation/TabNavigator';
+
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.chuj}>CIPA RUUUCHANIE</Text>
-    </View>
+    <SafeAreaProvider>
+        <TabNavigator />
+    </SafeAreaProvider>
   );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-    chuj:{
-        fontSize: 40,
-        
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-    
-});
+const styles = StyleSheet.create({});
