@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
+import AddTask from "../screens/AddTaskScreen";
 import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import MyTasks from "../screens/MyTasksScreen";
@@ -23,6 +24,7 @@ const TabNavigator = () => {
     return(
     <Tab.Navigator {...{screenOptions, sceneContainerStyle}}>
         <Tab.Screen name="My Tasks" component={MyTasks} />
+        <Tab.Screen name="Add Task" component={AddTask} />
     </Tab.Navigator>
     );
 
