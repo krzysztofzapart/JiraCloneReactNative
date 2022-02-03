@@ -1,16 +1,16 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import db from '../firebase';
-import { collection, onSnapshot, addDoc } from 'firebase/firestore';
+import  db, {auth} from '../firebase';
+import { collection, onSnapshot, addDoc, doc } from 'firebase/firestore';
 
 const AddTask = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-
     const addNew = async () =>{
         const collectionReference = collection(db, 'tasks');
-        const payload = {title, description};
+        const user = auth.currentUser.uid;
+        const payload = {title, description, user};
         await addDoc(collectionReference,payload);
     }
   return (

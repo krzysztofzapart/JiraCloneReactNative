@@ -2,14 +2,15 @@ import React, {useState,useEffect} from 'react';
 import {View, Text, StyleSheet, Image,Appearance} from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import  Task from '../components/Tasks';
-import db from '../firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
+import db, { auth }from '../firebase';
+import { collection, onSnapshot, where, query } from 'firebase/firestore';
 
 
 export default function MyTasks() {
   const [tasks, setTasks] = useState([]);
   useEffect(()=> {
-    onSnapshot(collection(db,'tasks'), (snapshot)=>{
+    const user = auth.currentUser.uid;
+    onSnapshot(query(collection(db,'tasks'), where("user","==",user)), (snapshot)=>{
       setTasks(snapshot.docs.map((doc)=>doc.data()));
     })
   }, [])
@@ -17,8 +18,12 @@ export default function MyTasks() {
     return (
         <View style={styles.mainView}>
         <View style={styles.toggleView}>
+          <TouchableOpacity>
             <View style={styles.toggleLeft}><Text style={styles.toggleTextLeft}>TODO</Text></View>
+          </TouchableOpacity>
+          <TouchableOpacity>
             <Text style={styles.toggleTextRight}>In Progress</Text>
+            </TouchableOpacity>
         </View>
         <View style={styles.allTaskView}>
             <Text style={styles.taskTitle}>Tasks</Text>
