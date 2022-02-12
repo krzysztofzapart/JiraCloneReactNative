@@ -6,6 +6,7 @@ import { auth } from '../firebase';
 const RegisterScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [verifPassword, setVerifPassword] = useState('')
 
     const navigation = useNavigation()
     const signUpHandler = () => {
@@ -44,8 +45,8 @@ const RegisterScreen = () => {
                 <TextInput 
                 placeholder='Confirm password:' 
                 style={styles.input}
-                value={password}
-                onChangeText={text=>setPassword(text)}
+                value={verifPassword}
+                onChangeText={text=>setVerifPassword(text)}
                 placeholderTextColor='white'
                 secureTextEntry>
 
