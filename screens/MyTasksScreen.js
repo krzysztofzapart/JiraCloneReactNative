@@ -6,15 +6,14 @@ import db, { auth }from '../firebase';
 import { collection, onSnapshot, where, query } from 'firebase/firestore';
 
 
-export default function MyTasks() {
+const MyTasks = () => {
   const [tasks, setTasks] = useState([]);
   useEffect(()=> {
     const user = auth.currentUser.uid;
-    onSnapshot(query(collection(db,'tasks'), where("user","==",user)), (snapshot)=>{
+    onSnapshot(query(collection(db,'tasks'), where("user","==",user), where("status","==","TODO")), (snapshot)=>{
       setTasks(snapshot.docs.map((doc)=>doc.data()));
     })
   }, [])
-
     return (
         <View style={styles.mainView}>
         <View style={styles.toggleView}>
@@ -22,7 +21,7 @@ export default function MyTasks() {
             <View style={styles.toggleLeft}><Text style={styles.toggleTextLeft}>TODO</Text></View>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.toggleTextRight}>In Progress</Text>
+            <Text style={styles.toggleTextRight}>DONE</Text>
             </TouchableOpacity>
         </View>
         <View style={styles.allTaskView}>
@@ -39,19 +38,9 @@ export default function MyTasks() {
        
         </View>
     </View>
-    //   <View style={styles.container}>
-  
-    //     <FlatList 
-    //       keyExtractor={(item) => item.id} 
-    //       data={people} 
-    //       renderItem={({ item }) => ( 
-    //         <Text style={styles.item}>{item.name}</Text>
-    //       )}
-    //     />
-  
-    //   </View>
     );
   }
+  export default MyTasks;
   
   const styles = StyleSheet.create({
     mainView:{
@@ -82,6 +71,9 @@ export default function MyTasks() {
         fontWeight:'bold',
         fontSize:15,
         marginRight:10,
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
       },
       toggleView:{
         width:210,

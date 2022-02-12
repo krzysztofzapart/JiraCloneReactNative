@@ -4,15 +4,18 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingVi
 import  db, {auth} from '../firebase';
 import { collection, onSnapshot, addDoc, doc } from 'firebase/firestore';
 
+
 const AddTask = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [status, setStatus] = useState('TODO');
     const addNew = async () =>{
         const collectionReference = collection(db, 'tasks');
         const user = auth.currentUser.uid;
-        const payload = {title, description, user};
+        const payload = {title, description, user, status};
         await addDoc(collectionReference,payload);
     }
+
   return (
     <KeyboardAvoidingView style = {styles.container} behavior='padding'>
             <View style={styles.inputContainer}>
